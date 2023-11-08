@@ -1,6 +1,6 @@
 # Mini Excel
 
-Welcome to Mini Excel, a simple web-based spreadsheet application.
+Welcome to Mini Excel, a simple Console-based spreadsheet application.
 
 ## Features
 
