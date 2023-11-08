@@ -1,0 +1,8 @@
+﻿  ExcelApp.cpp
+E:\University\Semester 3\DSA\Projects\Library\ExcelApp\ExcelApp\ExcelApp.cpp(437,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+E:\University\Semester 3\DSA\Projects\Library\ExcelApp\ExcelApp\ExcelApp.cpp(360,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+E:\University\Semester 3\DSA\Projects\Library\ExcelApp\ExcelApp\ExcelApp.cpp(346,7): message : while compiling class template member function 'void FunctionModule<Node<std::string>>::Calculator(Node<std::string> *,FrontEnd<std::string>)'
+E:\University\Semester 3\DSA\Projects\Library\ExcelApp\ExcelApp\ExcelApp.cpp(532,24): message : see the first reference to 'FunctionModule<Node<std::string>>::Calculator' in 'main'
+E:\University\Semester 3\DSA\Projects\Library\ExcelApp\ExcelApp\ExcelApp.cpp(440,31): message : see reference to class template instantiation 'FunctionModule<Node<std::string>>' being compiled
+E:\University\Semester 3\DSA\Projects\Library\ExcelApp\ExcelApp\ExcelApp.cpp(191): warning C4715: 'Excell<std::basic_string<char,std::char_traits<char>,std::allocator<char> > >::PositionGetter': not all control paths return a value
+  ExcelApp.vcxproj -> E:\University\Semester 3\DSA\Projects\Library\ExcelApp\x64\Debug\ExcelApp.exe
