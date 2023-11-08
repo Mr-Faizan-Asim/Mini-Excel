@@ -116,7 +116,7 @@ public:
 
 	}
 // Add A Row Above
-	void addRowAbove(T val)
+	void addRowAbove(T val, Node<T>* Current)
 	{
 		Node<T>* temp = Current;
 		temp = TillNull(temp,lef);
@@ -177,7 +177,292 @@ public:
 			}
 		}
 	}
-// Position
+// Add Row Down
+	void addRowDown(T val, Node<T>* Current)
+	{
+		Node<T>* temp = Current;
+		temp = TillNull(temp, lef);
+		if (Current->down == nullptr)
+		{
+			bool checker = false;
+			while (temp != nullptr)
+			{
+				Node<T>* next = new Node<T>(val);
+				if (checker == false)
+				{
+					next->up = temp;
+					BottomLeft = next;
+					BottomRight = next;
+					temp->down = next;
+					checker = true;
+
+				}
+				else
+				{
+
+					next->up = temp;
+					temp->down = next;
+					BottomRight->right = next;
+					next->left = BottomRight;
+					BottomRight = next;
+				}
+				temp = temp->right;
+			}
+		}
+		else
+		{
+			Node<T>* tempRow = nullptr;
+			while (temp != nullptr)
+			{
+				Node<T>* next = new Node<T>(val);
+				if (tempRow == nullptr)
+				{
+					next->down = temp->down;
+					temp->down->up = next;
+					temp->down = next;
+					next->up = temp;
+					tempRow = next;
+				}
+				else
+				{
+					next->down = temp->down;
+					temp->down->up = next;
+					temp->down = next;
+					next->up = temp;
+					tempRow->right = next;
+					next->left = tempRow;
+					tempRow = next;
+
+
+				}
+				temp = temp->right;
+			}
+		}
+	}
+// Add Columns Right
+	void addColumnRight(T val,Node<T>* Current)
+	{
+		Node<T>* temp = Current;
+		temp = TillNull(temp, up);
+		if (Current->right == nullptr)
+		{
+			bool checker = false;
+			while (temp != nullptr)
+			{
+				Node<T>* next = new Node<T>(val);
+				if (checker == false)
+				{
+					next->left = temp;
+					BottomRight = next;
+					TopRight = next;
+					temp->right = next;
+					checker = true;
+				}
+				else
+				{
+					next->left = temp;
+					temp->right = next;
+					BottomRight->down = next;
+					next->up = BottomRight;
+					BottomRight = next;
+				}
+				temp = temp->down;
+			}
+		}
+		else
+		{
+			Node<T>* tempRow = nullptr;
+			while (temp != nullptr)
+			{
+				Node<T>* next = new Node<T>(val);
+				if (tempRow == nullptr)
+				{
+					next->right = temp->right;
+					temp->right->left = next;
+					temp->right = next;
+					next->left = temp;
+					tempRow = next;
+				}
+				else
+				{
+					next->right = temp->right;
+					temp->right->left = next;
+					temp->right = next;
+					next->left = temp;
+					tempRow->down = next;
+					next->up = tempRow;
+					tempRow = next;
+
+
+				}
+				temp = temp->down;
+			}
+		}
+	}
+// Add Columns Right
+	void addColumnLeft(T val,Node<T>* Current)
+	{
+		Node<T>* temp = Current;
+		temp = TillNull(temp, up);
+		if (Current->left == nullptr)
+		{
+			bool checker = false;
+			while (temp != nullptr)
+			{
+				Node<T>* next = new Node<T>(val);
+				if (checker == false)
+				{
+					next->right = temp;
+					BottomLeft = next;
+					TopLeft = next;
+					temp->left = next;
+					checker = true;
+				}
+				else
+				{
+					next->right = temp;
+					temp->left = next;
+					BottomLeft->down = next;
+					next->up = BottomLeft;
+					BottomLeft = next;
+				}
+				temp = temp->down;
+			}
+		}
+		else
+		{
+			Node<T>* tempRow = nullptr;
+			while (temp != nullptr)
+			{
+				Node<T>* next = new Node<T>(val);
+				if (tempRow == nullptr)
+				{
+					next->left = temp->left;
+					temp->left->right = next;
+					temp->left = next;
+					next->right = temp;
+					tempRow = next;
+				}
+				else
+				{
+					next->left = temp->left;
+					temp->left->right = next;
+					temp->left = next;
+					next->right = temp;
+					tempRow->down = next;
+					next->up = tempRow;
+					tempRow = next;
+
+
+				}
+				temp = temp->down;
+			}
+		}
+	}
+// insert Cell
+	void insertCellByLeftShift(T valCol,T val)
+	{
+		Node<T>* temp = this->Current;
+		T tempPre = temp->data;
+		T pre;
+		addColumnRight(valCol, this->TopRight);
+		temp->data = val;
+		temp = temp->right;
+		while (temp != nullptr)
+		{
+			pre = temp->data;
+			temp->data = tempPre;
+			tempPre = pre;
+			temp = temp->right;
+		}
+	}
+	void insertCellByRightShift(T valCol, T val)
+	{
+		Node<T>* temp = this->Current->right;
+		T tempPre = temp->data;
+		T pre;
+		addColumnRight(valCol, this->TopRight);
+		temp->data = val;
+		temp = temp->right;
+		while (temp != nullptr)
+		{
+			pre = temp->data;
+			temp->data = tempPre;
+			tempPre = pre;
+			temp = temp->right;
+		}
+	}
+	void insertCellByDownShift(T valCol, T val)
+	{
+		Node<T>* temp = this->Current;
+		T tempPre = temp->data;
+		T pre;
+		addRowDown(valCol, this->BottomLeft);
+		temp->data = val;
+		temp = temp->down;
+		while (temp != nullptr)
+		{
+			pre = temp->data;
+			temp->data = tempPre;
+			tempPre = pre;
+			temp = temp->down;
+		}
+	}
+
+
+
+
+// delete Column
+	void deleteColumn()
+	{
+		Node<T>* temp = this->Current;
+		temp = TillNull(temp, up);
+		while (temp != nullptr && (temp->right != nullptr && temp->left != nullptr))
+		{
+			if (temp == TopLeft)
+				TopLeft = temp->right;
+			if (temp == TopRight)
+				TopRight = temp->left;
+			if (temp == BottomLeft)
+				BottomLeft = temp->right;
+			if (temp == BottomRight)
+				BottomRight = temp->left;
+			if (temp->right != nullptr)
+			{
+				Current = temp->right;
+				temp->right->left = temp->left;
+			}
+			if (temp->left != nullptr)
+				temp->left->right = temp->right;
+			temp = temp->down;
+		}
+	}
+	// delete Row
+	void deleteRow()
+	{
+		Node<T>* temp = this->Current;
+		temp = TillNull(temp, lef);
+		while (temp != nullptr && (temp->up != nullptr && temp->down != nullptr))
+		{
+			if (temp == TopLeft)
+				TopLeft = temp->down;
+			if (temp == TopRight)
+				TopRight = temp->down;
+			if (temp == BottomLeft)
+				BottomLeft = temp->up;
+			if (temp == BottomRight)
+				BottomRight = temp->up;
+			if (temp->down != nullptr)
+			{
+				Current = temp->down;
+				temp->down->up = temp->up;
+			}
+			if (temp->up != nullptr)
+				temp->up->down = temp->down;
+			temp = temp->right;
+		}
+	}
+	// Position
 	Node<T>* PositionGetter(Node<T>* temp, positionCell x)
 	{
 		if (x == lef)
@@ -197,6 +482,49 @@ public:
 			temp = PositionGetter(temp, x);
 		}
 		return temp;
+	}
+// Delete By LeftShift
+	void DeleteCellByLeftShift()
+	{
+		Node<T>* temp = this->Current;
+		Node<T>* tempNext = this->Current->right;
+		while (tempNext != nullptr)
+		{
+			temp->data = tempNext->data;
+			temp = temp->right;
+			tempNext = tempNext->right;
+		}
+	}
+	void DeleteCellByUpShift()
+	{
+		Node<T>* temp = this->Current;
+		Node<T>* tempNext = this->Current->down;
+		while (tempNext != nullptr)
+		{
+			temp->data = tempNext->data;
+			temp = temp->down;
+			tempNext = tempNext->down;
+		}
+	}
+// Clear whole 
+	void clearWhole(T val)
+	{
+
+		Node<T>* tempRow = TopLeft;
+		Node<T>* tempCol = TopLeft;
+		while (tempCol != nullptr)
+		{
+			while (tempRow != nullptr)
+			{
+
+				tempRow->data = val;
+				tempRow = tempRow->right;
+				
+			}
+
+			tempCol = tempCol->down;
+			tempRow = tempCol;
+		}
 	}
 };
 
@@ -218,6 +546,7 @@ public:
 		int col = 0;
 		char row = 0;
 		system("cls");
+		this->printtb(top);
 		while (tempCol != nullptr)
 		{
 			while (tempRow != nullptr)
@@ -236,9 +565,40 @@ public:
 		y = 3;
 		
 	}
+// print row
+	void printtb(Node<T>* temp)
+	{
+		Node<T>* H = temp;
+		int i = 1;
+		int x = 8;
+		int y = 5;
+		char val = 'A';
+		while (temp != nullptr || H != nullptr)
+		{
+			
+			if (temp != nullptr)
+			{
+				gotoxy(x, 1);
+					cout <<"\033[31m" << i;
+				i++;
+				x += 11;
+				temp = temp->right;
+			}
+			if (H != nullptr)
+			{
+				gotoxy(1, y);
+				cout << "\033[33m" << val;
+				val = val + 1;
+				y += 5;
+				H = H->down;
+			}
+		}
+
+	}
 // it print the cell on screen 
 	void CellPrint(Node<T>* temp,int x,int y)
 	{
+	
 		gotoxy(x,y);
 		cout << "\033[36m" << "----------";
 		gotoxy(x, y+1);
@@ -504,12 +864,38 @@ void main()
 			if (GetAsyncKeyState(0x57))
 			{
 				
-				link->addRowAbove("123");
+				link->addRowAbove("123", link->Current);
 				x.printGrid(link->TopLeft);
 				link->Current = link->TopLeft;
 				x.actCol = 3;
 				x.actRow = 3;
 			}
+			if (GetAsyncKeyState(0x53))
+			{
+
+				link->addRowDown("11", link->Current);
+				x.printGrid(link->TopLeft);
+				link->Current = link->TopLeft;
+				x.actCol = 3;
+				x.actRow = 3;
+			}
+			if (GetAsyncKeyState(0x44))
+			{
+				link->addColumnRight("32", link->Current);
+				x.printGrid(link->TopLeft);
+				link->Current = link->TopLeft;
+				x.actCol = 3;
+				x.actRow = 3;
+			}
+			if (GetAsyncKeyState(0x41))
+			{
+				link->addColumnLeft("92", link->Current);
+				x.printGrid(link->TopLeft);
+				link->Current = link->TopLeft;
+				x.actCol = 3;
+				x.actRow = 3;
+			}
+			
 			if (GetAsyncKeyState(0x42))
 			{
 				sit = 1;
@@ -522,9 +908,54 @@ void main()
 			{
 				Functions.Paste(Functions.PositionSt, link->Current,sit);
 				x.printGrid(link->TopLeft);
-				
+			}
+			if (GetAsyncKeyState(0x49))
+			{
+				int check = 0;
+				cin >> check;
+
+				if (check == 1)
+					link->insertCellByLeftShift("12", "5");
+				if (check == 2)
+					link->insertCellByRightShift("14111", "6");
+				if (check == 3)
+					link->insertCellByDownShift("32", "87");
+				x.printGrid(link->TopLeft);
+				link->Current = link->TopLeft;
+				x.actCol = 3;
+				x.actRow = 3;
+			}
+			if (GetAsyncKeyState(0x50))
+			{
+				int check = 0;
+				cin >> check;
+				if (check == 1)
+					link->DeleteCellByLeftShift();
+				if (check == 2)
+					link->DeleteCellByUpShift();
+				x.printGrid(link->TopLeft);
+				link->Current = link->TopLeft;
+				x.actCol = 3;
+				x.actRow = 3;
+			}
+		}
+		else if (GetAsyncKeyState(VK_SPACE))
+		{
+			int check = 0;
+			cin >> check;
+			if (check == 1)
+			{
+				link->deleteColumn();
+			}
+			else if(check == 2)
+			{
+				link->deleteRow();
 			}
 			
+			x.printGrid(link->TopLeft);
+			link->Current = link->TopLeft;
+			x.actCol = 3;
+			x.actRow = 3;
 		}
 		else if (GetAsyncKeyState(VK_TAB) && Functions.PositionSt != nullptr)
 		{
