@@ -1,39 +1,37 @@
-# Mini Excel
+# Mini Excel - Console-Based
 
-Welcome to Mini Excel, a simple Console-based spreadsheet application.
+Welcome to Mini Excel, a simple console-based spreadsheet application.
 
 ## Features
 
-- Create, edit, and delete cells in a grid-based interface.
+- Create and edit cells in a text-based grid.
 - Perform basic mathematical calculations (addition, subtraction, multiplication, division).
-- Save and load your spreadsheet data.
+- Save and load your spreadsheet data from text files.
 
-## How to Use
+## Usage
 
-Using Mini Excel is straightforward:
+1. **Installation:** No installation required. Simply download the source code or binary file.
 
-1. Click on a cell to select it. Selected cells are highlighted.
-2. To edit a cell, double-click on it, and a text input field will appear.
-3. To perform a calculation, type your formula into the cell (e.g., `=A1+B1`).
-4. Press Enter or click elsewhere to apply the calculation.
-5. To save your work, click the "Save" button.
-6. To load a saved spreadsheet, click the "Load" button and select your saved file.
+2. **Run the Application:**
 
-## Example
+   - If it's a binary file, run it from the command line.
+   - If it's a script, use your preferred programming language's interpreter (e.g., Python, Ruby, etc.).
 
-Here's an example of a basic spreadsheet:
+3. **Commands:**
+
+   - Use arrow keys and Enter to navigate and edit cells.
+   - To perform a calculation, enter a formula (e.g., `=A1+B1`) and press Enter.
+   - Save: Use a specific command to save your work.
+   - Load: Use a specific command to load a saved spreadsheet.
+
+4. **Example:**
+
+   Here's an example of a basic spreadsheet:
+
 
 | A1 | B1 | C1 |
 |---|---|---|
 | 5 | 10 | =A1+B1 |
-
-## License
-
-This project is licensed under the MIT License. You can find more details in the [LICENSE](LICENSE) file.
-
-## Contributing
-
-If you'd like to contribute to this project, please follow the guidelines in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 ## Feedback and Issues
 
