@@ -2,6 +2,8 @@
 
 Welcome to Mini Excel, a simple console-based spreadsheet application.
 
+![frontimage](front.PNG)
+
 ## Features
 
 - Create and edit cells in a text-based grid.
