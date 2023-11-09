@@ -2,7 +2,7 @@
 
 Welcome to Mini Excel, a simple console-based spreadsheet application.
 
-![frontimage](preview.PNG)
+![frontimage](pp.PNG)
 
 ## Features
 
