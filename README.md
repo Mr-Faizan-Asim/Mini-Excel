@@ -2,7 +2,7 @@
 
 Welcome to Mini Excel, a simple console-based spreadsheet application.
 
-![frontimage](front.PNG)
+![frontimage](preview.PNG)
 
 ## Features
 
@@ -35,8 +35,10 @@ Welcome to Mini Excel, a simple console-based spreadsheet application.
 |---|---|---|
 | 5 | 10 | =A1+B1 |
 
+![front](front.PNG)
 ## Feedback and Issues
 
 If you encounter any issues or have feedback, please open an issue on the [GitHub repository](https://github.com/your-username/mini-excel).
 
 Happy spreadsheet-ing!
+
