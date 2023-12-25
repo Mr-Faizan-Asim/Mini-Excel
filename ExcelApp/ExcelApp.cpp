@@ -900,7 +900,7 @@ public:
 			mover = false;
 		}
 	}
-
+	
 	void FrontPageManage()
 	{
 
@@ -1080,18 +1080,31 @@ public:
 
 void fetcher(string fileName, Node<string>* TopLeft);
 
+void Helper()
+{
+
+	cout <<endl << endl << endl << "1. Click Ctrt to show Option. Then Select Options By Space && Arrow Keys" << endl;
+	cout << "2. In Excel Arrow key Are for the movements" << endl;
+	cout << "3. Ctrl + A/D/W/S (inset row in right,left,up and down)" << endl;
+	cout << "4. Press Shift for start and end copying" << endl;
+	cout << "5. Press Ctrl + Space then Select 1 to delete Column and 2 to delete Row." << endl;
+	cout << "6. (Ctrl +) F1 to Save ,Escape is to exit with saving and F2 is to Reprint." << endl;
+	cout << "7. (Ctrl +) M to insert a value, I to insert Cell, P to dell Cell" << endl;
+	getchar();
+}
+
+
 void main()
 {
 start:
 	FrontEnd<string> x;
 	x.fetchData();
 	x.FrontPageManage();
-	Excell<string>* link = new Excell<string>("22");
+	Excell<string>* link = new Excell<string>("");
 	if (x.mover == true)
 	{
-		link = new Excell<string>("22", x.filenames[x.fileNameSingle]);
+		link = new Excell<string>("", x.filenames[x.fileNameSingle]);
 		fetcher(x.filenames[x.fileNameSingle], link->TopLeft);
-		cout << "ADAFAF";
 		getchar();
 	}
 	FunctionModule<Node<string>> Functions;
@@ -1157,70 +1170,84 @@ start:
 
 		else if (GetAsyncKeyState(VK_CONTROL))
 		{
+			if (GetAsyncKeyState(0x48))
+			{
+				system("cls");
+				Helper();
+				x.printGrid(link->TopLeft);
+			}
+			// w addRowAbove
 			if (GetAsyncKeyState(0x57))
 			{
 
-				link->addRowAbove("123", link->Current);
+				link->addRowAbove("", link->Current);
 				x.printGrid(link->TopLeft);
 				link->Current = link->TopLeft;
 				x.actCol = 3;
 				x.actRow = 3;
 			}
+			// s addRowDown
 			if (GetAsyncKeyState(0x53))
 			{
 
-				link->addRowDown("11", link->Current);
+				link->addRowDown("", link->Current);
 				x.printGrid(link->TopLeft);
 				link->Current = link->TopLeft;
 				x.actCol = 3;
 				x.actRow = 3;
 			}
+			// d addColumnRight
 			if (GetAsyncKeyState(0x44))
 			{
-				link->addColumnRight("32", link->Current);
+				link->addColumnRight("", link->Current);
 				x.printGrid(link->TopLeft);
 				link->Current = link->TopLeft;
 				x.actCol = 3;
 				x.actRow = 3;
 			}
+			// A addColumnLeft
 			if (GetAsyncKeyState(0x41))
 			{
-				link->addColumnLeft("92", link->Current);
+				link->addColumnLeft("", link->Current);
 				x.printGrid(link->TopLeft);
 				link->Current = link->TopLeft;
 				x.actCol = 3;
 				x.actRow = 3;
 			}
-
+			// B for Copy
 			if (GetAsyncKeyState(0x42))
 			{
 				sit = 1;
 			}
+			// X for Cut
 			if (GetAsyncKeyState(0x58))
 			{
 				sit = 2;
 			}
+			// V Paste
 			if (GetAsyncKeyState(0x56))
 			{
 				Functions.Paste(Functions.PositionSt, link->Current, sit);
 				x.printGrid(link->TopLeft);
 			}
+			// i to insert 
 			if (GetAsyncKeyState(0x49))
 			{
 				int check = 0;
 				cin >> check;
 
 				if (check == 1)
-					link->insertCellByLeftShift("12", "5");
+					link->insertCellByLeftShift("", "");
 				if (check == 2)
-					link->insertCellByRightShift("14111", "6");
+					link->insertCellByRightShift("", "");
 				if (check == 3)
-					link->insertCellByDownShift("32", "87");
+					link->insertCellByDownShift("", "");
 				x.printGrid(link->TopLeft);
 				link->Current = link->TopLeft;
 				x.actCol = 3;
 				x.actRow = 3;
 			}
+			// p to del cell
 			if (GetAsyncKeyState(0x50))
 			{
 				int check = 0;
@@ -1235,6 +1262,7 @@ start:
 				x.actRow = 3;
 			}
 		}
+		// to delete colums and rows
 		else if (GetAsyncKeyState(VK_SPACE))
 		{
 			int check = 0;
@@ -1253,6 +1281,7 @@ start:
 			x.actCol = 3;
 			x.actRow = 3;
 		}
+		// To show calculte os selected
 		else if (GetAsyncKeyState(VK_TAB) && Functions.PositionSt != nullptr)
 		{
 			x.printGrid(link->TopLeft);
@@ -1260,6 +1289,7 @@ start:
 
 
 		}
+		// TO save and close
 		else if (GetAsyncKeyState(VK_F1)) {
 			string name = "new doc" + to_string(x.filenames.size());
 			x.gotoxy(10, 1);
@@ -1271,6 +1301,7 @@ start:
 			link->save(name);
 			break;
 		}
+		//to edit data
 		else if (GetAsyncKeyState(0x4D))
 		{
 			string num;
@@ -1281,6 +1312,7 @@ start:
 			link->Current->data = num;
 			x.printGrid(link->TopLeft);
 		}
+		// TO SAVE & ESCAPE
 		else if (GetAsyncKeyState(VK_ESCAPE))
 		{
 			string name = "new doc" + to_string(x.filenames.size());
@@ -1289,10 +1321,11 @@ start:
 			link->save(name);
 			break;
 		}
+		// TO PRINT
 		else if (GetAsyncKeyState(VK_F2))
 		{
 			x.printGrid(link->TopLeft);
-			;
+			
 		}
 		Functions.movementCounter(link->Current);
 		Sleep(100);
